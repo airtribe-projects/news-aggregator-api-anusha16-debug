@@ -9,10 +9,25 @@ router.use(authMiddleware);
 // Get news based on user preferences
 router.get('/', newsController.getNews);
 
-// Search news articles
+// Search news articles (query params)
 router.get('/search', newsController.searchNews);
 
-// Clear cache (optional utility endpoint)
+// Get all read articles
+router.get('/read', newsController.getReadArticles);
+
+// Get all favorite articles
+router.get('/favorites', newsController.getFavoriteArticles);
+
+// Search by keyword (path param)
+router.get('/search/:keyword', newsController.searchByKeyword);
+
+// Mark article as read
+router.post('/:id/read', newsController.markAsRead);
+
+// Mark article as favorite
+router.post('/:id/favorite', newsController.markAsFavorite);
+
+// Clear cache (utility endpoint)
 router.post('/clear-cache', newsController.clearCache);
 
 module.exports = router;

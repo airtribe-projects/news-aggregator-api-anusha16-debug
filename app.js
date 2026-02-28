@@ -9,6 +9,9 @@ const authRoutes = require('./routes/authRoutes');
 const preferencesRoutes = require('./routes/preferencesRoutes');
 const newsRoutes = require('./routes/newsRoutes');
 
+// Import news controller for background updates
+const { startPeriodicCacheUpdates } = require('./controllers/newsController');
+
 // Middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -49,6 +52,9 @@ if (require.main === module) {
             return console.log('Something bad happened', err);
         }
         console.log(`Server is listening on ${port}`);
+        
+        // Start periodic cache updates
+        startPeriodicCacheUpdates();
     });
 }
 
